@@ -29,7 +29,7 @@ final class PingConnectionMiddleware implements Middleware
     {
         if (! $this->ping($this->connection)) {
             $this->connection->close();
-            $this->connection->connect();
+            $this->connection->getServerVersion(); // trigger reconnect
         }
 
         return $next($command);

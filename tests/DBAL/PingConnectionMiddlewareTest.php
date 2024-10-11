@@ -37,7 +37,7 @@ final class PingConnectionMiddlewareTest extends TestCase
     {
         $this->connection->expects(self::once())->method('getDatabasePlatform')->willThrowException(new Exception());
         $this->connection->expects(self::once())->method('close');
-        $this->connection->expects(self::once())->method('connect');
+        $this->connection->expects(self::once())->method('getServerVersion');
 
         $executed = 0;
         $next     = static function () use (&$executed): void {
@@ -61,7 +61,7 @@ final class PingConnectionMiddlewareTest extends TestCase
             );
         });
         $this->connection->expects(self::once())->method('close');
-        $this->connection->expects(self::once())->method('connect');
+        $this->connection->expects(self::once())->method('getServerVersion');
 
         $executed = 0;
         $next     = static function () use (&$executed): void {
@@ -85,7 +85,7 @@ final class PingConnectionMiddlewareTest extends TestCase
 
         $this->connection->expects(self::once())->method('executeQuery');
         $this->connection->expects(self::never())->method('close');
-        $this->connection->expects(self::never())->method('connect');
+        $this->connection->expects(self::never())->method('getServerVersion');
 
         $executed = 0;
         $next     = static function () use (&$executed): void {
